@@ -1,0 +1,93 @@
+.module-sioca {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+  .module-sioca .module-sioca-toc-container {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2; }
+  .module-sioca .module-sioca-map-node {
+    width: 100%;
+    height: 100%;
+    z-index: 1; }
+
+.sioca-map-side-bar-component {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 400px;
+  pointer-events: none; }
+  .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container {
+    position: relative;
+    width: 100%;
+    height: 100%; }
+    .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container .sioca-map-side-bar-component-toggle-button {
+      pointer-events: all;
+      position: absolute;
+      background-color: #e4e0e0;
+      cursor: pointer;
+      left: 0;
+      top: 0;
+      height: 50px;
+      width: 50px;
+      transition: all 200ms linear;
+      box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+      border-bottom-left-radius: 3px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+    .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container .sioca-map-side-bar-component-side-bar {
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 350px;
+      background-color: #e4e0e0;
+      transition: all 200ms linear;
+      box-shadow: -2px 0 2px rgba(0, 0, 0, 0.2);
+      z-index: 1; }
+      .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container .sioca-map-side-bar-component-side-bar .sioca-map-side-bar-component-side-bar-content {
+        position: relative;
+        padding: 10px;
+        height: calc(100% - 20px); }
+        .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container .sioca-map-side-bar-component-side-bar .sioca-map-side-bar-component-side-bar-content .sioca-map-side-bar-component-header {
+          display: flex;
+          align-items: center;
+          height: 40px; }
+        .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container .sioca-map-side-bar-component-side-bar .sioca-map-side-bar-component-side-bar-content .sioca-map-side-bar-component-body {
+          pointer-events: all;
+          overflow-y: auto;
+          height: calc(100% - 50px); }
+
+.sioca-map-toc-component {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px; }
+  .sioca-map-toc-component .sioca-map-toc-component-tree * span {
+    font-weight: 100; }
+  .sioca-map-toc-component * {
+    transition: all 50ms linear; }
+
+.sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container {
+  display: flex;
+  flex-flow: wrap;
+  height: auto; }
+  .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer; }
+    .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb img {
+      width: 100px;
+      height: 100px; }
+
+#root {
+  font-family: "Roboto", sans-serif !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0; }

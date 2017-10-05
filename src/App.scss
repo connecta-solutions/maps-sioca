@@ -1,0 +1,13 @@
+@import "main-module/MainModule";
+@import "component/sidebar/side-bar-component";
+@import "main-module/TOC/TocComponent";
+@import "main-module/basemap-selector/BaseMapSelector";
+
+#root {
+    font-family: "Roboto", sans-serif !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}

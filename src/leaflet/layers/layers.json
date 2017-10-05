@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "TRANSPORTE",
+        "type" : "GROUP",
+        "toggled" : true,
+        "children" : [
+            {
+                "name" : "Ferrovia",
+                "type" : "ITEM",
+                "dsn" : "http://${ip}/geoserver/TCE_MT/wms",
+                "layers" : "TCE_MT:Unidades_Gestoras",
+                "enabledLayer" : true,
+                "styles" : "",
+                "toggled" : true
+            }
+        ]
+    }
+]
+
+
+
+

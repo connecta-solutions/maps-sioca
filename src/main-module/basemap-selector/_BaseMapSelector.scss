@@ -1,0 +1,21 @@
+$baseClass : "sioca-map-base-map-selector";
+
+.#{$baseClass} {
+
+    .#{$baseClass}-base-maps-container {
+        display: flex;
+        flex-flow: wrap;
+        height: auto;
+
+        .#{$baseClass}-base-map-thumb {
+            margin-right: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+}
