@@ -1,14 +1,46 @@
 [
     {
-        "name" : "TRANSPORTE",
+        "name" : "Municipios",
         "type" : "GROUP",
         "toggled" : true,
         "children" : [
             {
-                "name" : "Ferrovia",
+                "name" : "TCE-MT Municipios MT",
                 "type" : "ITEM",
-                "dsn" : "http://${ip}/geoserver/TCE_MT/wms",
+                "dsn" : "http://${ip}/geoserver/wms",
+                "layers" : "TCE_MT:MUNICIPIOS_MT",
+                "enabledLayer" : true,
+                "styles" : "",
+                "toggled" : true
+            }
+        ]
+    },
+    {
+        "name" : "Unidades",
+        "type" : "GROUP",
+        "toggled" : true,
+        "children" : [
+            {
+                "name" : "TCE-MT Unidades Gestoras",
+                "type" : "ITEM",
+                "dsn" : "http://${ip}/geoserver/wms",
                 "layers" : "TCE_MT:Unidades_Gestoras",
+                "enabledLayer" : true,
+                "styles" : "",
+                "toggled" : true
+            }
+        ]
+    },
+    {
+        "name" : "Municipios PR",
+        "type" : "GROUP",
+        "toggled" : true,
+        "children" : [
+            {
+                "name" : "PR Municipios",
+                "type" : "ITEM",
+                "dsn" : "http://${ip}/geoserver/wms",
+                "layers" : "PR:MUNICIPIOS_PR",
                 "enabledLayer" : true,
                 "styles" : "",
                 "toggled" : true

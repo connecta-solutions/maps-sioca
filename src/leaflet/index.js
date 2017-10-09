@@ -2,6 +2,8 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import Scope from "../_base/ApplicationScope";
 import baseMaps from './basemaps/basemaps';
+import ApplicationMediator, {TOPICS} from "../helper/ApplicationMediator";
+import GetFeatureInfo from "../helper/GetFeatureInfo";
 
 export default class LeafletAPI {
 
@@ -11,8 +13,16 @@ export default class LeafletAPI {
 
     _baseMaps = baseMaps;
 
+    _legends = {};
+
+    _layersMapping = {};
+
+    _reorderedLayers = [];
+
     constructor (mapNode) {
         this.buildMap(mapNode);
+
+        ApplicationMediator.subscribe(TOPICS.REORDER_LAYERS, (TOPIC, layers) => this.handleReorderLayers(layers));
     }
 
     buildMap(mapNode) {
@@ -24,12 +34,34 @@ export default class LeafletAPI {
                     zoom: 4
                 });
 
+                this._map.on("click", this.handleMapClick.bind(this));
+
                 this.setupBaseMap();
+                this.setupPopoverPane();
 
             } catch (error) {
                 reject(error);
             }
         });
+    }
+
+    setupPopoverPane () {
+        let pane = this._map.createPane("popover");
+
+        pane.style.zIndex = "800";
+    }
+
+    handleMapClick (event) {
+        let latLng = event.latlng;
+
+        if (event.originalEvent.target.dataset.type !== "closePopup" && event.originalEvent.target.dataset.type !== "popupControl") {
+            GetFeatureInfo.execute(this._map, latLng).then((geoJSONs) => {
+                ApplicationMediator.publish(TOPICS.CLICK_ON_MAP, {
+                    event,
+                    geoJSONs
+                });
+            });
+        }
     }
 
     setupBaseMap () {
@@ -67,8 +99,10 @@ export default class LeafletAPI {
 
     setupInitialLayers () {
         let scope = this;
+        let layers = Object.assign([], this._layers);
 
-        build(this._layers);
+        build(layers);
+        setOrder();
 
         function build (layers) {
             layers.forEach((obj) => {
@@ -94,6 +128,55 @@ export default class LeafletAPI {
 
                     layer.defaultLayer = true;
                     layer.addTo(scope._map);
+
+                    scope._layersMapping[obj._id] = layer;
+                }
+            });
+        }
+
+        function setOrder () {
+            let layersIds = Object.keys(Object.assign({}, scope._layersMapping));
+            let count = layers.length;
+
+            layersIds.forEach((id) => {
+                let pane = scope._map.getPane(String(id));
+
+                pane.style.zIndex = (400 + count);
+                count -= 1;
+            });
+        }
+    }
+
+    setupLegends () {
+        let scope = this;
+        let layers = Object.assign([], this._layers);
+
+        build(layers);
+
+        function build (layers) {
+            layers.forEach((obj) => {
+                if (obj.type === "GROUP") {
+                    build(obj.children);
+                } else if (obj.type === "ITEM") {
+                    let url = obj.dsn.replace("\${ip}", Scope.$geoServerIp);
+
+                    let params = {
+                        request : "GetLegendGraphic",
+                        version : "1.1.1",
+                        layer : obj.layers,
+                        width : 50,
+                        height : 50,
+                        format : "image/png"
+                    };
+
+                    url = scope._toQueryParams(url, params);
+
+                    scope._legends[obj._id] = {
+                        _id : obj._id,
+                        enabled : obj.toggled,
+                        title : obj.name,
+                        url
+                    };
                 }
             });
         }
@@ -126,25 +209,102 @@ export default class LeafletAPI {
 
     toggleLayer (layer) {
         if (layer.enabledLayer) {
-            this.disabledLayer(layer);
+            this.disableLayer(layer);
+            this.disableLegend(layer);
         } else {
-            this.enabledLayer(layer);
+            this.enableLayer(layer);
+            this.enableLegend(layer);
         }
 
         layer.enabledLayer = !layer.enabledLayer;
+
+        ApplicationMediator.publish(TOPICS.TOGGLE_LAYER, layer);
     }
 
-    disabledLayer = (layer) => {
+    disableLayer = (layer) => {
         let pane = this._map.getPane(String(layer._id));
         pane.style.opacity = 0;
     };
 
-    enabledLayer = (layer) => {
+    enableLayer = (layer) => {
         let pane = this._map.getPane(String(layer._id));
         pane.style.opacity = 1;
     };
 
+    disableLegend (layer) {
+        this._legends[layer._id].enabled = false;
+    }
+
+    enableLegend (layer) {
+        this._legends[layer._id].enabled = true;
+    }
+
     getCurrentBaseMapName () {
         return this._currentBasemap.name;
+    }
+
+    getLegendsAsArray () {
+        return this._reorderedLayers.length ? this._reorderedLayers : Object.values(this._legends);
+    }
+
+    handleReorderLayers (layers) {
+        let count = layers.length;
+        let newLayers = Object.assign([], layers);
+
+        newLayers.forEach((layer) => {
+            let pane = this._map.getPane(String(layer._id));
+            pane.style.zIndex = (400 + count);
+
+            count -= 1;
+        });
+
+        this._reorderedLayers = layers;
+    }
+
+    getActiveLayers () {
+        let self = this;
+        let activeLayersKeys = Object.keys(this._layersMapping).filter((id) => isActive(id));
+        let activeLayers = [];
+
+        for (let key in this._layersMapping) {
+            if (activeLayersKeys.includes(key)) {
+                activeLayers.push(this._layersMapping[key]);
+            }
+        }
+
+        return activeLayers;
+
+        function isActive (layerId) {
+            let active = false;
+
+            find(self._layers);
+
+            function find (layers) {
+
+                for (let obj of layers) {
+                    if (obj.type === "ITEM") {
+                        if (obj._id === Number(layerId)) {
+                            active = obj.enabledLayer;
+                            break;
+                        }
+                    } else if (obj.type === "GROUP") {
+                        find(obj.children)
+                    }
+                }
+            }
+
+            return active;
+        }
+    }
+
+    getPane (name) {
+        return this._map.getPane(name);
+    }
+
+    _toQueryParams (url, params) {
+        return url + "?" + Object.keys(params).reduce((a, key) => {
+            a.push(key.toUpperCase() + '=' + encodeURIComponent(params[key]));
+            return a
+        }, []).join('&');
     }
 }

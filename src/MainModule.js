@@ -6,8 +6,8 @@ import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import TocComponent from "./main-module/TOC/TocComponent";
 import BaseMapSelector from "./main-module/basemap-selector/BaseMapSelector";
 import {IconButton} from "material-ui";
-import Map from 'material-ui/svg-icons/maps/map';
-import Layers from 'material-ui/svg-icons/maps/layers';
+import LegendComponent from "./main-module/legend/LegendComponent";
+import PopoverComponent from "./component/popover/popover-component";
 
 class MainModule extends Component {
 
@@ -34,27 +34,32 @@ class MainModule extends Component {
         return (
             <div className={this._baseClass}>
                 <div className={this._baseClass + "-toc-container"}>
-                    <SideBarComponent title="Temas"
-                                      icon={<IconMenu/>}>
+                    <SideBarComponent icon={<IconMenu/>}>
                         <div>
-                            <div>
-                                <IconButton tooltip="Camadas"
-                                            tooltipPosition="bottom-right"
-                                            onClick={() => this.changeTool("toc")}
-                                            style={{
-                                                backgroundColor : this.state.actualTool === "toc" ? "#c1bcbc" : "transparent"
-                                            }}>
-                                    <Layers />
-                                </IconButton>
+                            <div className={this._baseClass + "-toc-menu-container"}>
+                                <div className={this._baseClass + "-toc-menu-item"}
+                                     onClick={() => this.changeTool("toc")}
+                                     style={{
+                                         backgroundColor : this.state.actualTool === "toc" ? "rgba(255,255,255, 1)" : "transparent"
+                                     }}>
+                                    <span>Camadas</span>
+                                </div>
 
-                                <IconButton tooltip="Seletor de mapa base"
-                                            tooltipPosition="bottom-right"
-                                            onClick={() => this.changeTool("baseMapSelector")}
-                                            style={{
-                                                backgroundColor : this.state.actualTool === "baseMapSelector" ? "#c1bcbc" : "transparent"
-                                            }}>
-                                    <Map />
-                                </IconButton>
+                                <div className={this._baseClass + "-toc-menu-item"}
+                                     onClick={() => this.changeTool("legend")}
+                                     style={{
+                                         backgroundColor : this.state.actualTool === "legend" ? "rgba(255,255,255, 1)" : "transparent"
+                                     }}>
+                                    <span>Legenda</span>
+                                </div>
+
+                                <div className={this._baseClass + "-toc-menu-item"}
+                                     onClick={() => this.changeTool("baseMapSelector")}
+                                     style={{
+                                         backgroundColor : this.state.actualTool === "baseMapSelector" ? "rgba(255,255,255, 1)" : "transparent"
+                                     }}>
+                                    <span>Mapas base</span>
+                                </div>
                             </div>
 
                             {
@@ -64,8 +69,21 @@ class MainModule extends Component {
                         </div>
                     </SideBarComponent>
                 </div>
-                <div ref={element => this._mapNode = element}
+
+                <div ref={element => {
+                    this._mapNode = element;
+
+                    if (!this.state.mapIsBuilt) {
+                        this.setState({
+                            mapIsBuilt : true
+                        });
+                    }
+                }}
                      className={this._baseClass + "-map-node"} />
+
+                {this.state.mapIsBuilt && (
+                    <PopoverComponent />
+                )}
             </div>
         );
     }
@@ -75,5 +93,6 @@ export default MainModule;
 
 const tools = {
     toc : <TocComponent />,
-    baseMapSelector : <BaseMapSelector />
+    baseMapSelector : <BaseMapSelector />,
+    legend : <LegendComponent />
 };

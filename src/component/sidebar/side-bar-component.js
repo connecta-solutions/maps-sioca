@@ -30,9 +30,6 @@ class SideBarComponent extends Component {
                              width : !this.state.toggled ? 0 : 350
                          }}>
                         <div className={this._baseClass + "-side-bar-content"}>
-                            <div className={this._baseClass +  "-header"}>
-                                {this.props.title}
-                            </div>
                             <div className={this._baseClass + "-body"}>
                                 {this.props.children}
                             </div>

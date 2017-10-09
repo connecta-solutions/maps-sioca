@@ -42,14 +42,21 @@ export default class MapSioca {
     }
 
     setupInitialLayers () {
-        Scope.$mapApi.setupInitialLayers()
+        Scope.$mapApi.setupInitialLayers();
+    }
+
+    setupLegends () {
+        Scope.$mapApi.setupLegends();
     }
 }
 
 window["MapSioca"] = MapSioca;
 
-// setTimeout(() => {
-//     let _instance = new MapSioca(document.getElementById("root"), "192.168.1.1:8080");
-//     _instance.buildApplication();
-//     window["instance"] = _instance;
-// }, 2000);
+setTimeout(() => {
+    let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
+    _instance.buildApplication();
+    _instance.setupInitialLayers();
+    _instance.setupLegends();
+
+    window["instance"] = _instance;
+}, 2000);

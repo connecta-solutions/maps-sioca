@@ -13,6 +13,21 @@ $baseClass : "module-sioca";
         left: 0;
         bottom: 0;
         z-index: 2;
+
+        .#{$baseClass}-toc-menu-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .#{$baseClass}-toc-menu-item {
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 33%;
+                height: 40px;
+            }
+        }
     }
 
     .#{$baseClass}-map-node {

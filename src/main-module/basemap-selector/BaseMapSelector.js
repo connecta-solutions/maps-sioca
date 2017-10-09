@@ -23,7 +23,7 @@ class BaseMapSelector extends Component {
                             <div key={index}
                                  className={this._baseClass + "-base-map-thumb"}
                                  style={{
-                                     border : currentMap === baseMap.name ? "solid 2px #606996" : "solid 2px white"
+                                     border : currentMap === baseMap.name ? "solid 2px #af5d5d" : "2px solid #d8d8d8"
                                  }}>
                                 <img src={baseMap.thumbnail} alt={baseMap.name}
                                      onClick={() => {this.handleClickAnyBaseMap(baseMap)}}/>

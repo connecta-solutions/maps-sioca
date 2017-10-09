@@ -6,11 +6,14 @@ $baseClass : "sioca-map-base-map-selector";
         display: flex;
         flex-flow: wrap;
         height: auto;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 0 6px 6px;
 
         .#{$baseClass}-base-map-thumb {
-            margin-right: 5px;
-            margin-bottom: 5px;
             cursor: pointer;
+            height: 100px;
+            margin-top: 6px;
 
             img {
                 width: 100px;
