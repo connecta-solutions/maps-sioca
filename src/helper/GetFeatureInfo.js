@@ -28,8 +28,9 @@ export default class GetFeatureInfo {
                 });
 
                 Promise.all(promises).then((responses) => {
-                    responses.forEach((response) => {
+                    responses.forEach((response, index) => {
                         if (response.data.features.length) {
+                            response.data.layerName = layers[index].layerName;
                             geoJSONs.push(response.data);
                         }
                     });

@@ -45,7 +45,7 @@ class PopoverComponent extends React.Component {
             }, () => {
                 this.setState({
                     bounds : {
-                        top : event.layerPoint.y - this._popoverReference.clientHeight,
+                        top : event.layerPoint.y - (this._popoverReference.clientHeight + 10),
                         left : event.layerPoint.x - (this._popoverReference.clientWidth / 2)
                     }
                 });
@@ -64,6 +64,8 @@ class PopoverComponent extends React.Component {
 
         geoJSONs.forEach((geoJSON) => {
             return geoJSON.features.map((feature) => {
+                feature.properties["Camada"] = geoJSON.layerName;
+
                 pagesProperties.push(
                     feature.properties
                 )
@@ -77,15 +79,28 @@ class PopoverComponent extends React.Component {
 
     buildPopoverContent = () => {
         let currentPageProperties = this._popoverData[this.state.currentPage];
+        let styleNoBreakLines = {whiteSpace : 'nowrap'};
         let nodes = [];
+
+        nodes.push(
+            <div style={styleNoBreakLines}>
+                <span style={{
+                    fontSize : 12
+                }}>
+                    <b>{"Camada: " + currentPageProperties["Camada"]}</b>
+                </span>
+            </div>
+        );
 
         for (let key in currentPageProperties) {
             nodes.push(
                 <div key={key}>
-                    <span style={{
-                        whiteSpace : 'nowrap'
-                    }}>
-                        <b>{key}</b>{": " + currentPageProperties[key]}
+                    <span style={styleNoBreakLines}>
+                        {key !== "Camada" ? (
+                            <div>
+                                <b>{key}</b>{": " + currentPageProperties[key]}
+                            </div>
+                        ) : ""}
                     </span>
                 </div>
             );

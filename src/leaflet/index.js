@@ -126,6 +126,7 @@ export default class LeafletAPI {
                         pane.style.opacity = 0;
                     }
 
+                    layer.layerName = obj.name;
                     layer.defaultLayer = true;
                     layer.addTo(scope._map);
 
