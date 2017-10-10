@@ -13,6 +13,8 @@ class PopoverComponent extends React.Component {
 
     _popoverData = [];
 
+    _lastSizes = {};
+
     state = {
         opened : false,
         currentPage : 0,
@@ -89,14 +91,15 @@ class PopoverComponent extends React.Component {
         let styleNoBreakLines = {whiteSpace : 'nowrap'};
         let nodes = [];
 
+
         nodes.push(
             <div key="1"
-                style={styleNoBreakLines}>
-                <span style={{
-                    fontSize : 14
-                }}>
-                    <b>{currentPageProperties["Camada"]}</b>
-                </span>
+                 style={styleNoBreakLines}>
+                    <span style={{
+                        fontSize : 14
+                    }}>
+                        <b>{currentPageProperties["Camada"]}</b>
+                    </span>
             </div>
         );
 
@@ -124,14 +127,55 @@ class PopoverComponent extends React.Component {
     };
 
     handleClickPopoverArrowLeft = () => {
+        this.setLastSizes();
+
         this.setState({
             currentPage : this.state.currentPage - 1
-        });
+        }, () => {this.verifyChangeSize()});
     };
 
     handleClickPopoverArrowRight = () => {
+        this.setLastSizes();
+
         this.setState({
             currentPage : this.state.currentPage + 1
+        }, () => {this.verifyChangeSize()});
+    };
+
+    setLastSizes = () => {
+        this._lastSizes = {
+            width : this._popoverReference.clientWidth,
+            height : this._popoverReference.clientHeight
+        };
+    };
+
+    verifyChangeSize = () => {
+        let diffWidth = this._popoverReference.clientWidth - this._lastSizes.width;
+        let diffHeight = this._popoverReference.clientHeight - this._lastSizes.height;
+        let nextLeft = 0;
+        let nextTop = 0;
+
+        if (diffWidth > 0) {
+            nextLeft = this.state.bounds.left - (diffWidth / 2);
+        }
+
+        if (diffWidth < 0) {
+            nextLeft = this.state.bounds.left + (Math.abs(diffWidth) / 2);
+        }
+
+        if (diffHeight > 0) {
+            nextTop = this.state.bounds.top - diffHeight;
+        }
+
+        if (diffHeight < 0) {
+            nextTop = this.state.bounds.top + Math.abs(diffHeight);
+        }
+
+        this.setState({
+            bounds : {
+                top : nextTop,
+                left : nextLeft
+            }
         });
     };
 
@@ -166,7 +210,7 @@ class PopoverComponent extends React.Component {
                     <div className={this._baseClass + "-carousel-control"}>
                         <div className="left"
                              data-type="popupControl"
-                             onClick={this.handleClickPopoverArrowLeft}
+                             onClick={this.state.currentPage !== 0 ? this.handleClickPopoverArrowLeft : () => {}}
                              style={{
                                  opacity : this.state.currentPage !== 0 ? 1 : 0
                              }}>
@@ -175,7 +219,7 @@ class PopoverComponent extends React.Component {
 
                         <div className="right"
                              data-type="popupControl"
-                             onClick={this.handleClickPopoverArrowRight}
+                             onClick={this.state.currentPage !== (this._popoverData.length - 1) ? this.handleClickPopoverArrowRight : () => {}}
                              style={{
                                  opacity : this.state.currentPage !== (this._popoverData.length - 1) ? 1 : 0
                              }}>

@@ -250,21 +250,40 @@ export default class LeafletAPI {
     }
 
     getLegendsAsArray () {
-        return this._reorderedLayers.length ? this._reorderedLayers : Object.values(this._legends);
+        return this._reorderedLayers.length ? this._reorderedLayers : Object.assign([], Object.values(this._legends));
     }
 
     handleReorderLayers (layers) {
         let count = layers.length;
         let newLayers = Object.assign([], layers);
 
+        this._removeFromOrderedLayers(layers);
+
         newLayers.forEach((layer) => {
             let pane = this._map.getPane(String(layer._id));
             pane.style.zIndex = (400 + count);
 
+            this._reorderedLayers.push(layer);
             count -= 1;
         });
+    }
 
-        this._reorderedLayers = layers;
+    _removeFromOrderedLayers (layers) {
+        let reorderedLayersIds = this._reorderedLayers.map((layer) => layer._id);
+        let layersIds = layers.map((layer) => layer._id);
+        let indexesToExclude = [];
+
+        layersIds.forEach((id) => {
+            if (reorderedLayersIds.includes(id)) {
+                indexesToExclude.push(reorderedLayersIds.indexOf(id));
+            }
+        });
+
+        indexesToExclude.sort((a, b) => a - b);
+        indexesToExclude.reverse();
+        indexesToExclude.forEach((index) => {
+            this._reorderedLayers.splice(index, 1);
+        });
     }
 
     getActiveLayers () {

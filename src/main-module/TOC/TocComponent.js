@@ -6,10 +6,6 @@ import decorators from '../../decorators/SortabletreeDecorators';
 
 class TocComponent extends Component {
 
-    static PropTypes = {
-        mapApi : React.PropTypes.func
-    };
-
     _baseClass = "sioca-map-toc-component";
 
     _layers = Scope.$layers;

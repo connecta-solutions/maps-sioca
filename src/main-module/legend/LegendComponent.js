@@ -86,8 +86,9 @@ export default class LegendComponent extends React.Component {
 
     constructor (props) {
         super(props);
+        let legends = Scope.$mapApi.getLegendsAsArray();
 
-        this.state.legends = Scope.$mapApi.getLegendsAsArray().filter((legend) => legend.enabled);
+        this.state.legends = legends.filter((legend) => legend.enabled);
 
         ApplicationMediator.subscribe(TOPICS.REORDER_LAYERS, this.handleReorderLayers);
         ApplicationMediator.subscribe(TOPICS.TOGGLE_LAYER, this.handleToggleLayer);
@@ -100,7 +101,7 @@ export default class LegendComponent extends React.Component {
 
     handleToggleLayer () {
         this.setState({
-            legends : Scope.$mapApi._legends.filter((legend) => legend.enabled)
+            legends : Scope.$mapApi.getLegendsAsArray().filter((legend) => legend.enabled)
         });
     }
 
