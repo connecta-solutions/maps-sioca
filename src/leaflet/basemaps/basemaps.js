@@ -74,15 +74,15 @@ export default [
         thumbnail : 'http://c.tile.openstreetmap.fr/hot/4/6/8.png'
     },
     {
-        name : "openmapsurfer-roads",
-        label : "OpenMapSurfer",
+        name : "OpenStreetMap.BlackAndWhite",
+        label : "OpenStreetMaps Preto e branco",
         type : 'tileLayer',
         options : {
-            maxZoom: 20,
-            attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         },
-        url : 'http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}',
-        thumbnail : 'http://korona.geog.uni-heidelberg.de/tiles/roads/x=6&y=8&z=4'
+        url : 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
+        thumbnail : 'http://c.tiles.wmflabs.org/bw-mapnik/4/6/8.png'
     },
     {
         name : "osm-aquarela",

@@ -142,10 +142,25 @@
   .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb {
     cursor: pointer;
     height: 100px;
-    margin-top: 6px; }
-    .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb img {
+    margin-top: 6px;
+    position: relative; }
+    .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb:hover .map-title {
+      opacity: 1; }
+    .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb:hover .thumb {
+      opacity: 0.5; }
+    .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb .thumb {
       width: 100px;
-      height: 100px; }
+      height: 100px;
+      opacity: 1; }
+    .sioca-map-base-map-selector .sioca-map-base-map-selector-base-maps-container .sioca-map-base-map-selector-base-map-thumb .map-title {
+      text-align: center;
+      position: absolute;
+      font-size: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      z-index: 10; }
 
 .sioca-map-legend-component-legend-container {
   background-color: white; }

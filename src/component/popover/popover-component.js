@@ -26,6 +26,7 @@ class PopoverComponent extends React.Component {
         super(props);
 
         ApplicationMediator.subscribe(TOPICS.CLICK_ON_MAP, (TOPIC, data) => this.handleMapClick(data));
+        ApplicationMediator.subscribe(TOPICS.MAP_ZOOM_END, (TOPIC, data) => this.handleMapZoomEnd());
     }
 
     componentDidMount () {
@@ -33,6 +34,12 @@ class PopoverComponent extends React.Component {
 
         pane.appendChild(this._popoverReference);
     }
+
+    handleMapZoomEnd = () => {
+        this.setState({
+            opened : false
+        });
+    };
 
     handleMapClick = ({event, geoJSONs}) => {
         if (geoJSONs.length) {
@@ -63,7 +70,7 @@ class PopoverComponent extends React.Component {
         this._popoverData = [];
 
         geoJSONs.forEach((geoJSON) => {
-            return geoJSON.features.map((feature) => {
+            return geoJSON.features.forEach((feature) => {
                 feature.properties["Camada"] = geoJSON.layerName;
 
                 pagesProperties.push(
@@ -83,11 +90,12 @@ class PopoverComponent extends React.Component {
         let nodes = [];
 
         nodes.push(
-            <div style={styleNoBreakLines}>
+            <div key="1"
+                style={styleNoBreakLines}>
                 <span style={{
-                    fontSize : 12
+                    fontSize : 14
                 }}>
-                    <b>{"Camada: " + currentPageProperties["Camada"]}</b>
+                    <b>{currentPageProperties["Camada"]}</b>
                 </span>
             </div>
         );

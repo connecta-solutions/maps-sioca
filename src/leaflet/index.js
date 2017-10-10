@@ -35,6 +35,7 @@ export default class LeafletAPI {
                 });
 
                 this._map.on("click", this.handleMapClick.bind(this));
+                this._map.on("zoomend", this.handleMapZoomEnd.bind(this));
 
                 this.setupBaseMap();
                 this.setupPopoverPane();
@@ -50,6 +51,10 @@ export default class LeafletAPI {
 
         pane.style.zIndex = "800";
     }
+
+    handleMapZoomEnd = () => {
+        ApplicationMediator.publish(TOPICS.MAP_ZOOM_END, true)
+    };
 
     handleMapClick (event) {
         let latLng = event.latlng;

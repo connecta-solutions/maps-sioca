@@ -18,5 +18,6 @@ export default class ApplicationMediator {
 export const TOPICS = {
     REORDER_LAYERS : "REORDER_LAYERS",
     TOGGLE_LAYER : "TOGGLE_LAYER",
-    CLICK_ON_MAP :  "CLICK_ON_MAP"
+    CLICK_ON_MAP :  "CLICK_ON_MAP",
+    MAP_ZOOM_END :  "MAP_ZOOM_END"
 };

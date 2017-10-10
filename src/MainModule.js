@@ -5,7 +5,6 @@ import SideBarComponent from "./component/sidebar/side-bar-component";
 import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import TocComponent from "./main-module/TOC/TocComponent";
 import BaseMapSelector from "./main-module/basemap-selector/BaseMapSelector";
-import {IconButton} from "material-ui";
 import LegendComponent from "./main-module/legend/LegendComponent";
 import PopoverComponent from "./component/popover/popover-component";
 

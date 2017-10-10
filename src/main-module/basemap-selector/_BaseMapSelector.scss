@@ -14,10 +14,33 @@ $baseClass : "sioca-map-base-map-selector";
             cursor: pointer;
             height: 100px;
             margin-top: 6px;
+            position: relative;
 
-            img {
+            &:hover {
+                .map-title {
+                    opacity: 1;
+                }
+
+                .thumb {
+                    opacity: 0.5;
+                }
+            }
+
+            .thumb {
                 width: 100px;
                 height: 100px;
+                opacity: 1;
+            }
+
+            .map-title {
+                text-align: center;
+                position: absolute;
+                font-size: 10px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                z-index: 10;
             }
         }
     }
