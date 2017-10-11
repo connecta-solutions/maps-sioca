@@ -1,5 +1,4 @@
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import Scope from "../_base/ApplicationScope";
 import baseMaps from './basemaps/basemaps';
 import ApplicationMediator, {TOPICS} from "../helper/ApplicationMediator";

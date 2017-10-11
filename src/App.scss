@@ -4,6 +4,7 @@
 @import "main-module/TOC/TocComponent";
 @import "main-module/basemap-selector/BaseMapSelector";
 @import "main-module/legend/LegendComponent";
+@import "../node_modules/leaflet/dist/leaflet.css";
 
 #root {
     font-family: "Roboto", sans-serif !important;

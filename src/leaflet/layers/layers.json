@@ -64,7 +64,7 @@
                 "toggled": false
             },
             {
-                "name": "Unidade de conservacao",
+                "name": "Unidade de conservação",
                 "type": "ITEM",
                 "dsn": "http://${ip}/geoserver/geovalec/wms",
                 "layers": "TB_AE_UNIDADE_CONSERVACAO",
@@ -84,12 +84,12 @@
         ]
     },
     {
-        "name": "RECURSOS HIDRICOS",
+        "name" : "RECURSOS HÍDRICOS",
         "type": "GROUP",
         "toggled": false,
         "children": [
             {
-                "name": "Cursos D'agua",
+                "name": "Cursos D'água",
                 "type": "ITEM",
                 "dsn": "http://${ip}/geoserver/geovalec/wms",
                 "layers": "TB_RH_HIDROGRAFIA",
