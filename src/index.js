@@ -52,11 +52,11 @@ export default class MapSioca {
 
 window["MapSioca"] = MapSioca;
 
-setTimeout(() => {
-    let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
-    _instance.buildApplication();
-    _instance.setupInitialLayers();
-    _instance.setupLegends();
+//setTimeout(() => {
+//    let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
+//    _instance.buildApplication();
+//    _instance.setupInitialLayers();
+//    _instance.setupLegends();
 
-    window["instance"] = _instance;
-}, 2000);
+//    window["instance"] = _instance;
+//}, 2000);
