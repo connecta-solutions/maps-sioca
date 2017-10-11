@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainModule from './MainModule';
+import "./App.css";
 import Scope from "./_base/ApplicationScope";
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -51,11 +52,11 @@ export default class MapSioca {
 
 window["MapSioca"] = MapSioca;
 
-//setTimeout(() => {
-//    let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
+// setTimeout(() => {
+//    let _instance = new MapSioca(document.getElementById("root"), "10.61.0.83:8080");
 //    _instance.buildApplication();
 //    _instance.setupInitialLayers();
 //    _instance.setupLegends();
-
+//
 //    window["instance"] = _instance;
-//}, 2000);
+// }, 2000);

@@ -110,7 +110,9 @@
     align-items: center; }
   .sioca-map-popover-component .sioca-map-popover-component-body {
     padding: 5px 10px;
-    font-size: 10px; }
+    font-size: 10px;
+    max-height: 130px;
+    overflow-y: auto; }
   .sioca-map-popover-component .sioca-map-popover-component-footer {
     padding: 5px 10px;
     height: 15px;

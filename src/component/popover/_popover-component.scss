@@ -42,6 +42,8 @@ $baseClass : "sioca-map-popover-component";
     .#{$baseClass}-body {
         padding: 5px 10px;
         font-size: 10px;
+        max-height: 130px;
+        overflow-y: auto;
     }
 
     .#{$baseClass}-footer {

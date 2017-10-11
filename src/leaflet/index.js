@@ -1,4 +1,5 @@
 import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import Scope from "../_base/ApplicationScope";
 import baseMaps from './basemaps/basemaps';
 import ApplicationMediator, {TOPICS} from "../helper/ApplicationMediator";
@@ -169,8 +170,8 @@ export default class LeafletAPI {
                         request : "GetLegendGraphic",
                         version : "1.1.1",
                         layer : obj.layers,
-                        width : 50,
-                        height : 50,
+                        width : 20,
+                        height : 20,
                         format : "image/png"
                     };
 

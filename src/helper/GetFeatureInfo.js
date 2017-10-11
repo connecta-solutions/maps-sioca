@@ -15,6 +15,9 @@ export default class GetFeatureInfo {
             let getFeatureInfoUris = [];
             let promises = [];
             let geoJSONs = [];
+            let config = {
+                'Access-Control-Allow-Origin': '*'
+            };
 
             try {
                 layers.forEach((layer) => {
@@ -23,7 +26,7 @@ export default class GetFeatureInfo {
 
                 getFeatureInfoUris.forEach((url) => {
                     promises.push(
-                        axios.get(url)
+                        axios.get(url, config)
                     );
                 });
 

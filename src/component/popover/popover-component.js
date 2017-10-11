@@ -108,8 +108,13 @@ class PopoverComponent extends React.Component {
                 <div key={key}>
                     <span style={styleNoBreakLines}>
                         {key !== "Camada" ? (
-                            <div>
-                                <b>{key}</b>{": " + currentPageProperties[key]}
+                            <div style={{
+                                maxWidth: 250,
+                                overflow: "hidden",
+                                cursor: "pointer",
+                                textOverflow: "ellipsis"
+                            }}>
+                                <b>{key}</b>":&nbsp;<span title={currentPageProperties[key]}>{currentPageProperties[key]}</span>
                             </div>
                         ) : ""}
                     </span>
@@ -154,6 +159,7 @@ class PopoverComponent extends React.Component {
         let diffHeight = this._popoverReference.clientHeight - this._lastSizes.height;
         let nextLeft = 0;
         let nextTop = 0;
+        let bounds = {};
 
         if (diffWidth > 0) {
             nextLeft = this.state.bounds.left - (diffWidth / 2);
@@ -171,12 +177,19 @@ class PopoverComponent extends React.Component {
             nextTop = this.state.bounds.top + Math.abs(diffHeight);
         }
 
-        this.setState({
-            bounds : {
-                top : nextTop,
-                left : nextLeft
-            }
-        });
+        if (Math.abs(diffWidth) !== 0) {
+            bounds.left = nextLeft;
+        }
+
+        if (Math.abs(diffHeight) !== 0) {
+            bounds.top = nextTop;
+        }
+
+        if (Object.keys(bounds).length > 0) {
+            this.setState({
+                bounds : Object.assign({}, this.state.bounds, bounds)
+            }, this.setLastSizes());
+        }
     };
 
     render () {
