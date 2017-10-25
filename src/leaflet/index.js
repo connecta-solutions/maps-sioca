@@ -210,7 +210,7 @@ export default class LeafletAPI {
         });
 
         let lastPoint = coordinatesArr[coordinatesArr.length - 1];
-        this._map.panTo(L.latLng(lastPoint.y, lastPoint.x));
+        if (lastPoint) this._map.panTo(L.latLng(lastPoint.y, lastPoint.x));
     }
 
     toggleLayer (layer) {
