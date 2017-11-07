@@ -57,7 +57,7 @@ $baseClass : "sioca-map-side-bar-component";
                 .#{$baseClass}-body {
                     pointer-events: all;
                     overflow-y: auto;
-                    height: calc(100% - 50px);
+                    height: 100%;
                 }
             }
         }
