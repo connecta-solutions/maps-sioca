@@ -1,8 +1,8 @@
 import React from 'react';
 import Scope from '../../_base/ApplicationScope';
-import ApplicationMediator, {TOPICS} from '../../helper/ApplicationMediator';
 import PlayArrow from 'material-ui/svg-icons/av/play-arrow';
-import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
+import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable-hoc';
+import ApplicationMediator, {TOPICS} from "../../helper/ApplicationMediator";
 
 const baseClass = (className) => {
     let cssClass = "sioca-map-legend-component";
@@ -86,33 +86,28 @@ export default class LegendComponent extends React.Component {
 
     constructor (props) {
         super(props);
-        let legends = Scope.$mapApi.getLegendsAsArray();
 
-        this.state.legends = legends.filter((legend) => legend.enabled);
-
-        ApplicationMediator.subscribe(TOPICS.REORDER_LAYERS, this.handleReorderLayers);
-        ApplicationMediator.subscribe(TOPICS.TOGGLE_LAYER, this.handleToggleLayer);
+        this.state = {
+            legends : Scope.$mapApi.getLegendsArray()
+        };
     }
 
-    componentWillUnmount () {
-        ApplicationMediator.unsubscribe(this.handleReorderLayers);
-        ApplicationMediator.unsubscribe(this.handleToggleLayer);
+    componentDidMount () {
+        ApplicationMediator.subscribe(TOPICS.REORDER_LAYERS, () => this.onReorderLayers());
     }
 
-    handleToggleLayer () {
-        this.setState({
-            legends : Scope.$mapApi.getLegendsAsArray().filter((legend) => legend.enabled)
-        });
-    }
+    onReorderLayers = () => {
+        try {
+            this.setState({
+                legends : Scope.$mapApi.getLegendsArray()
+            });
+        } catch (e) {
+
+        }
+    };
 
     handleSortLayersEnd = ({oldIndex, newIndex}) => {
-        let legends = arrayMove(this.state.legends, oldIndex, newIndex);
-
-        this.setState({
-            legends
-        });
-
-        ApplicationMediator.publish(TOPICS.REORDER_LAYERS, legends);
+        Scope.$mapApi.reorderLayersOnMap({oldIndex, newIndex});
     };
 
     render () {

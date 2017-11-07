@@ -4,6 +4,7 @@ import Scope from "../_base/ApplicationScope";
 import baseMaps from './basemaps/basemaps';
 import ApplicationMediator, {TOPICS} from "../helper/ApplicationMediator";
 import GetFeatureInfo from "../helper/GetFeatureInfo";
+import {arrayMove} from 'react-sortable-hoc';
 
 export default class LeafletAPI {
 
@@ -13,16 +14,16 @@ export default class LeafletAPI {
 
     _baseMaps = baseMaps;
 
-    _legends = {};
+    _legendsMapping = {};
 
     _layersMapping = {};
 
-    _reorderedLayers = [];
+    _activeLegendsArray = [];
 
     constructor (mapNode) {
         this.buildMap(mapNode);
 
-        ApplicationMediator.subscribe(TOPICS.REORDER_LAYERS, (TOPIC, layers) => this.handleReorderLayers(layers));
+        ApplicationMediator.subscribe(TOPICS.TOGGLE_LAYER, (layer) => this.handleToggleLayer(layer))
     }
 
     buildMap(mapNode) {
@@ -159,6 +160,8 @@ export default class LeafletAPI {
 
         build(layers);
 
+        this._activeLegendsArray = this.getActiveLegends();
+
         function build (layers) {
             layers.forEach((obj) => {
                 if (obj.type === "GROUP") {
@@ -177,7 +180,7 @@ export default class LeafletAPI {
 
                     url = scope._toQueryParams(url, params);
 
-                    scope._legends[obj._id] = {
+                    scope._legendsMapping[obj._id] = {
                         _id : obj._id,
                         enabled : obj.toggled,
                         title : obj.name,
@@ -188,7 +191,12 @@ export default class LeafletAPI {
         }
     }
 
-    resizeMap() {
+    getActiveLegends () {
+        let legends = Object.values(this._legendsMapping);
+        return legends.filter(a => a.enabled);
+    }
+
+    resizeMap () {
         this._map.invalidateSize(true);
     }
 
@@ -238,52 +246,15 @@ export default class LeafletAPI {
     };
 
     disableLegend (layer) {
-        this._legends[layer._id].enabled = false;
+        this._legendsMapping[layer._id].enabled = false;
     }
 
     enableLegend (layer) {
-        this._legends[layer._id].enabled = true;
+        this._legendsMapping[layer._id].enabled = true;
     }
 
     getCurrentBaseMapName () {
         return this._currentBasemap.name;
-    }
-
-    getLegendsAsArray () {
-        return this._reorderedLayers.length ? this._reorderedLayers : Object.assign([], Object.values(this._legends));
-    }
-
-    handleReorderLayers (layers) {
-        let count = layers.length;
-        let newLayers = Object.assign([], layers);
-
-        this._removeFromOrderedLayers(layers);
-
-        newLayers.forEach((layer) => {
-            let pane = this._map.getPane(String(layer._id));
-            pane.style.zIndex = (400 + count);
-
-            this._reorderedLayers.push(layer);
-            count -= 1;
-        });
-    }
-
-    _removeFromOrderedLayers (layers) {
-        let reorderedLayersIds = this._reorderedLayers.map((layer) => layer._id);
-        let layersIds = layers.map((layer) => layer._id);
-        let indexesToExclude = [];
-
-        layersIds.forEach((id) => {
-            if (reorderedLayersIds.includes(id)) {
-                indexesToExclude.push(reorderedLayersIds.indexOf(id));
-            }
-        });
-
-        indexesToExclude.sort((a, b) => a - b);
-        indexesToExclude.reverse();
-        indexesToExclude.forEach((index) => {
-            this._reorderedLayers.splice(index, 1);
-        });
     }
 
     getActiveLayers () {
@@ -324,6 +295,39 @@ export default class LeafletAPI {
 
     getPane (name) {
         return this._map.getPane(name);
+    }
+
+    reorderLayersOnMap ({oldIndex, newIndex}) {
+        this._activeLegendsArray = arrayMove(this._activeLegendsArray, oldIndex, newIndex);
+
+        this._reorder();
+
+        ApplicationMediator.publish(TOPICS.REORDER_LAYERS);
+    }
+
+    getLegendsArray () {
+        return this._activeLegendsArray;
+    }
+
+    handleToggleLayer () {
+        this._activeLegendsArray = this.getActiveLegends();
+
+        this._reorder();
+    }
+
+    _reorder () {
+        let count = this._activeLegendsArray.length;
+
+        if (count) {
+            let newLayers = Object.assign([], this._activeLegendsArray);
+
+            newLayers.forEach((layer) => {
+                let pane = this._map.getPane(String(layer._id));
+
+                pane.style.zIndex = (400 + count);
+                count -= 1;
+            });
+        }
     }
 
     _toQueryParams (url, params) {
