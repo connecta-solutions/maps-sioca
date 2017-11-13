@@ -29,7 +29,10 @@ class SideBarComponent extends Component {
                          style={{
                              width : !this.state.toggled ? 0 : 350
                          }}>
-                        <div className={this._baseClass + "-side-bar-content"}>
+                        <div className={this._baseClass + "-side-bar-content"}
+                        style={{
+                            display : !this.state.toggled ? "none" : "block"
+                        }}>
                             <div className={this._baseClass + "-body"}>
                                 {this.props.children}
                             </div>

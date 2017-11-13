@@ -48,15 +48,23 @@ export default class MapSioca {
     setupLegends () {
         Scope.$mapApi.setupLegends();
     }
+
+    insertOccurrenceLayer (points) {
+        Scope.$mapApi.insertOccurrenceLayer(points);
+    }
+
+    removeOccurrenceLayer () {
+        Scope.$mapApi.removeOccurrenceLayer();
+    }
 }
 
 window["MapSioca"] = MapSioca;
 
-// setTimeout(() => {
-//    let _instance = new MapSioca(document.getElementById("root"), "10.61.0.83:8080");
-//    _instance.buildApplication();
-//    _instance.setupInitialLayers();
-//    _instance.setupLegends();
-//
-//    window["instance"] = _instance;
-// }, 2000);
+setTimeout(() => {
+   let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
+   _instance.buildApplication();
+   _instance.setupInitialLayers();
+   _instance.setupLegends();
+
+   window["instance"] = _instance;
+}, 2000);

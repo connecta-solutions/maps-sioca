@@ -73,7 +73,7 @@
         .sioca-map-side-bar-component .sioca-map-side-bar-component-general-container .sioca-map-side-bar-component-side-bar .sioca-map-side-bar-component-side-bar-content .sioca-map-side-bar-component-body {
           pointer-events: all;
           overflow-y: auto;
-          height: calc(100% - 50px); }
+          height: 100%; }
 
 .popover-arrow-icon-style, .sioca-map-popover-component .sioca-map-popover-component-footer .sioca-map-popover-component-carousel-control .left, .sioca-map-popover-component .sioca-map-popover-component-footer .sioca-map-popover-component-carousel-control .right {
   width: 20px;
@@ -168,6 +168,9 @@
   background-color: white; }
   .sioca-map-legend-component-legend-container * {
     transition: all 100ms linear; }
+  .sioca-map-legend-component-legend-container .sioca-map-legend-component-occurrence-layer-legend {
+    padding: 10px;
+    padding-bottom: 0; }
 
 .sioca-map-legend-component-sortable-list {
   padding: 10px; }
@@ -180,6 +183,47 @@
   background-color: #f9f9f9;
   border: 1px solid #efefef;
   border-bottom: none; }
+
+.sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container {
+  border-bottom: 1px solid black; }
+  .sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container .sioca-map-legend-component-legend-header {
+    display: flex;
+    background-color: rgba(102, 204, 255, 0.4); }
+    .sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container .sioca-map-legend-component-legend-header .head {
+      font-size: 10px;
+      width: 100px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center; }
+    .sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container .sioca-map-legend-component-legend-header .occurrence-type {
+      flex: 1;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      border-bottom: none;
+      justify-content: center; }
+  .sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container .sioca-map-legend-component-legend-body {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-bottom: none; }
+    .sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container .sioca-map-legend-component-legend-body .line-title {
+      font-size: 10px;
+      width: 100px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center; }
+    .sioca-map-legend-component-legend-body .sioca-map-legend-component-occurrence-layer-legend-container .sioca-map-legend-component-legend-body .legends {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      border-left: 1px solid black;
+      height: 25px;
+      align-items: center; }
 
 .sioca-map-legend-component-collapse-handle {
   position: absolute;

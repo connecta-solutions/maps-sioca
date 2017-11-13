@@ -1,102 +1,54 @@
 [
     {
-        "name": "TRANSPORTE",
-        "type": "GROUP",
-        "toggled": true,
-        "children": [
+        "name" : "Municipios",
+        "type" : "GROUP",
+        "toggled" : true,
+        "children" : [
             {
-                "name": "Ferrovia",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "VW_FE_FERROVIA",
-                "enabledLayer": true,
-                "styles": "",
-                "toggled": true
-            },
-            {
-                "name": "Rodovia",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_TR_RODOVIA",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
+                "name" : "TCE-MT Municipios MT",
+                "type" : "ITEM",
+                "dsn" : "http://${ip}/geoserver/wms",
+                "layers" : "TCE_MT:MUNICIPIOS_MT",
+                "enabledLayer" : true,
+                "styles" : "",
+                "toggled" : true
             }
         ]
     },
     {
-        "name": "LIMITES ADMINISTRATIVOS",
-        "type": "GROUP",
-        "toggled": false,
-        "children": [
+        "name" : "Unidades",
+        "type" : "GROUP",
+        "toggled" : true,
+        "children" : [
             {
-                "name": "Limite Estadual",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_TE_LIMITE_ESTADUAL",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
-            },
-            {
-                "name": "Limite Municipal",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_TE_MUNICIPIO",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
+                "name" : "TCE-MT Unidades Gestoras",
+                "type" : "ITEM",
+                "dsn" : "http://${ip}/geoserver/wms",
+                "layers" : "TCE_MT:Unidades_Gestoras",
+                "enabledLayer" : true,
+                "styles" : "",
+                "toggled" : true
             }
         ]
     },
     {
-        "name": "MEIO AMBIENTE",
-        "type": "GROUP",
-        "toggled": false,
-        "children": [
+        "name" : "Municipios PR",
+        "type" : "GROUP",
+        "toggled" : true,
+        "children" : [
             {
-                "name": "Bioma",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_MA_BIOMA",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
-            },
-            {
-                "name": "Unidade de conservação",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_AE_UNIDADE_CONSERVACAO",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
-            },
-            {
-                "name": "Caverna",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_MI_CAVERNA",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
-            }
-        ]
-    },
-    {
-        "name" : "RECURSOS HÍDRICOS",
-        "type": "GROUP",
-        "toggled": false,
-        "children": [
-            {
-                "name": "Cursos D'água",
-                "type": "ITEM",
-                "dsn": "http://${ip}/geoserver/geovalec/wms",
-                "layers": "TB_RH_HIDROGRAFIA",
-                "enabledLayer": false,
-                "styles": "",
-                "toggled": false
+                "name" : "PR Municipios",
+                "type" : "ITEM",
+                "dsn" : "http://${ip}/geoserver/wms",
+                "layers" : "PR:MUNICIPIOS_PR",
+                "enabledLayer" : true,
+                "styles" : "",
+                "toggled" : true
             }
         ]
     }
 ]
+
+
+
+

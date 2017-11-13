@@ -5,6 +5,7 @@ import baseMaps from './basemaps/basemaps';
 import ApplicationMediator, {TOPICS} from "../helper/ApplicationMediator";
 import GetFeatureInfo from "../helper/GetFeatureInfo";
 import {arrayMove} from 'react-sortable-hoc';
+import OccurrenceLegendDecorator from "../decorators/OccurrenceLegendDecorator";
 
 export default class LeafletAPI {
 
@@ -19,6 +20,10 @@ export default class LeafletAPI {
     _layersMapping = {};
 
     _activeLegendsArray = [];
+
+    _hasOccurrenceLayer = false;
+
+    _occurrenceLayerIsChecked = true;
 
     constructor (mapNode) {
         this.buildMap(mapNode);
@@ -315,6 +320,64 @@ export default class LeafletAPI {
         this._reorder();
     }
 
+    /**
+     *
+     * @param {IPoint[]} points
+     */
+    insertOccurrenceLayer (points) {
+
+
+        let pane = this._map.getPane("occurrence-layer");
+
+        if (pane) {
+            pane.remove();
+        }
+
+        pane = this._map.createPane("occurrence-layer");
+
+        points.forEach((point) => {
+            let coordinates = L.latLng(point.y, point.x);
+            let html = OccurrenceLegendDecorator[point.legendType].html;
+            let icon = L.divIcon({className: 'my-div-icon', html, iconAnchor: [10, 10]}, {iconAnchor: [10, 10]});
+
+            L.marker(coordinates, {icon, pane})
+                .addTo(this._map)
+                .bindPopup(this._buildPopupHtml(point.info));
+        });
+
+        this._hasOccurrenceLayer = true;
+
+        ApplicationMediator.publish(TOPICS.INSERT_OCCURRENCE_LAYER, true)
+    }
+
+    removeOccurrenceLayer () {
+        let pane = this._map.getPane("occurrence-layer");
+        let popup = document.querySelector(".leaflet-popup.leaflet-zoom-animated");
+
+        if (popup) popup.remove();
+        pane.remove();
+
+        this._hasOccurrenceLayer = false;
+
+        ApplicationMediator.publish(TOPICS.REMOVE_OCCURRENCE_LAYER, false)
+    }
+
+    toggleOccurrenceLayer (toggle) {
+        let pane = this._map.getPane("occurrence-layer");
+
+        this._occurrenceLayerIsChecked = toggle;
+
+        toggle ? pane.style.opacity = 1 : pane.style.opacity = 0;
+    }
+
+    get hasOccurrenceLayer () {
+        return this._hasOccurrenceLayer;
+    }
+
+    get occurrenceLayerIsChecked () {
+        return this._occurrenceLayerIsChecked;
+    }
+
     _reorder () {
         let count = this._activeLegendsArray.length;
 
@@ -328,6 +391,19 @@ export default class LeafletAPI {
                 count -= 1;
             });
         }
+    }
+
+    _buildPopupHtml (info) {
+        if (!info) return "";
+
+        let keys = Object.keys(info);
+        let htmlStr = "";
+
+        for (let index in keys) {
+            htmlStr += `<div><b>${keys[index]}: </b>${info[keys[index]]} </div>`;
+        }
+
+        return htmlStr;
     }
 
     _toQueryParams (url, params) {

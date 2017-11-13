@@ -7,6 +7,7 @@ import TocComponent from "./main-module/TOC/TocComponent";
 import BaseMapSelector from "./main-module/basemap-selector/BaseMapSelector";
 import LegendComponent from "./main-module/legend/LegendComponent";
 import PopoverComponent from "./component/popover/popover-component";
+import OccurrenceLegendDecorator from "./decorators/OccurrenceLegendDecorator";
 
 class MainModule extends Component {
 
