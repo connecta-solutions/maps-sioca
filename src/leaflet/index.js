@@ -322,11 +322,9 @@ export default class LeafletAPI {
 
     /**
      *
-     * @param {IPoint[]} points
+     * @param {IOccurrence[]} occurrences
      */
-    insertOccurrenceLayer (points) {
-
-
+    insertOccurrenceLayer (occurrences) {
         let pane = this._map.getPane("occurrence-layer");
 
         if (pane) {
@@ -335,14 +333,18 @@ export default class LeafletAPI {
 
         pane = this._map.createPane("occurrence-layer");
 
-        points.forEach((point) => {
-            let coordinates = L.latLng(point.y, point.x);
-            let html = OccurrenceLegendDecorator[point.legendType].html;
-            let icon = L.divIcon({className: 'my-div-icon', html, iconAnchor: [10, 10]}, {iconAnchor: [10, 10]});
+        occurrences.forEach((occurrence) => {
+            let info = occurrence.info;
 
-            L.marker(coordinates, {icon, pane})
-                .addTo(this._map)
-                .bindPopup(this._buildPopupHtml(point.info));
+            occurrence.geometry.forEach((point) => {
+                let coordinates = L.latLng(point.y, point.x);
+                let html = OccurrenceLegendDecorator[point.legendType].html;
+                let icon = L.divIcon({className: 'my-div-icon', html, iconAnchor: [10, 10]}, {iconAnchor: [10, 10]});
+
+                L.marker(coordinates, {icon, pane})
+                    .addTo(this._map)
+                    .bindPopup(this._buildPopupHtml(info));
+            });
         });
 
         this._hasOccurrenceLayer = true;
@@ -400,7 +402,9 @@ export default class LeafletAPI {
         let htmlStr = "";
 
         for (let index in keys) {
-            htmlStr += `<div><b>${keys[index]}: </b>${info[keys[index]]} </div>`;
+            if (info[keys[index]]) {
+                htmlStr += `<div><b>${keys[index]}: </b>${info[keys[index]]} </div>`;
+            }
         }
 
         return htmlStr;

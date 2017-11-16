@@ -27,7 +27,7 @@ const legends = {
         title : "Áreas Degradadas",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #8497B0"
             }))}>
@@ -63,7 +63,7 @@ const legends = {
         title : "Contaminação e Poluição",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #FFCCCC"
             }))}>
@@ -99,7 +99,7 @@ const legends = {
         title : "Danos ao Patrimônio Espeleológico",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #FF99FF"
             }))}>
@@ -135,7 +135,7 @@ const legends = {
         title : "Desmobilização",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #66CCFF"
             }))}>
@@ -171,7 +171,7 @@ const legends = {
         title : "Erosão/Assoreamento",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #6699FF"
             }))}>
@@ -207,7 +207,7 @@ const legends = {
         title : "Faixa de Domínio",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #9966FF"
             }))}>
@@ -243,7 +243,7 @@ const legends = {
         title : "Impactos à Fauna Silvestre",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #FF7C80"
             }))}>
@@ -279,7 +279,7 @@ const legends = {
         title : "Plantios e Revestimento Vegetal",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #99FF66"
             }))}>
@@ -315,7 +315,7 @@ const legends = {
         title : "Licenças/Outorgas",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #990099"
             }))}>
@@ -351,7 +351,7 @@ const legends = {
         title : "Saúde e Segurança no Trabalho",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #FFCC00"
             }))}>
@@ -387,7 +387,7 @@ const legends = {
         title : "Sistema de Drenagem",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #595959"
             }))}>
@@ -423,7 +423,7 @@ const legends = {
         title : "Supressão Vegetal",
         html : (
             `<div style=${getStyle(Object.assign({}, defaultStyle, {
-                backgroundColor : "transparent",
+                backgroundColor : "white",
                 boxSizing : "border-box",
                 border : "2px solid #70AD47"
             }))}>

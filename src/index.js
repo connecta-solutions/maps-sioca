@@ -62,9 +62,12 @@ window["MapSioca"] = MapSioca;
 
 setTimeout(() => {
    let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
+   let occurrences = require("./leaflet/layers/occurrences.json");
+
    _instance.buildApplication();
    _instance.setupInitialLayers();
    _instance.setupLegends();
+   _instance.insertOccurrenceLayer(occurrences);
 
    window["instance"] = _instance;
 }, 2000);
