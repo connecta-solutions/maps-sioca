@@ -49,8 +49,8 @@ export default class MapSioca {
         Scope.$mapApi.setupLegends();
     }
 
-    insertOccurrenceLayer (points) {
-        Scope.$mapApi.insertOccurrenceLayer(points);
+    insertOccurrenceLayer (occurrences, aliases) {
+        Scope.$mapApi.insertOccurrenceLayer(occurrences, aliases);
     }
 
     removeOccurrenceLayer () {
@@ -60,14 +60,12 @@ export default class MapSioca {
 
 window["MapSioca"] = MapSioca;
 
-setTimeout(() => {
-   let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
-   let occurrences = require("./leaflet/layers/occurrences.json");
-
-   _instance.buildApplication();
-   _instance.setupInitialLayers();
-   _instance.setupLegends();
-   _instance.insertOccurrenceLayer(occurrences);
-
-   window["instance"] = _instance;
-}, 2000);
+// setTimeout(() => {
+//    let _instance = new MapSioca(document.getElementById("root"), "cet.cds.com.br");
+//
+//    _instance.buildApplication();
+//    _instance.setupInitialLayers();
+//    _instance.setupLegends();
+//
+//    window["instance"] = _instance;
+// }, 2000);

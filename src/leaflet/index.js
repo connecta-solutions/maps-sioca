@@ -6,6 +6,7 @@ import ApplicationMediator, {TOPICS} from "../helper/ApplicationMediator";
 import GetFeatureInfo from "../helper/GetFeatureInfo";
 import {arrayMove} from 'react-sortable-hoc';
 import OccurrenceLegendDecorator from "../decorators/OccurrenceLegendDecorator";
+import Converter from "../helper/Converter";
 
 export default class LeafletAPI {
 
@@ -36,6 +37,8 @@ export default class LeafletAPI {
             try {
                 this._map = L.map(mapNode, {
                     crs : L.CRS.EPSG3857,
+                    zoomSnap: 0.25,
+                    zoomDelta: 0.25,
                     center: [-13, -55],
                     zoom: 4
                 });
@@ -322,9 +325,9 @@ export default class LeafletAPI {
 
     /**
      *
-     * @param {IOccurrence[]} occurrences
+     * @param {Object[]} occurrences
      */
-    insertOccurrenceLayer (occurrences) {
+    insertOccurrenceLayer (occurrences, aliases) {
         let pane = this._map.getPane("occurrence-layer");
 
         if (pane) {
@@ -332,7 +335,9 @@ export default class LeafletAPI {
         }
 
         pane = this._map.createPane("occurrence-layer");
+        pane.style.zIndex = "699";
 
+        occurrences = Converter.occurrencesToPoints(occurrences, aliases);
         occurrences.forEach((occurrence) => {
             let info = occurrence.info;
 
